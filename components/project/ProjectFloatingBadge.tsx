@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function ProjectFloatingBadge() {
   return (
     <a
-      href="#overview"
+      href="/pride-world-city"
       className="fixed bottom-5 right-3 z-[994] inline-flex flex-col items-center gap-2 rounded-[24px] border border-[#173363]/15 bg-white/96 px-4 py-4 text-center shadow-[0_14px_36px_rgba(0,0,0,0.12)] backdrop-blur-md transition hover:-translate-y-1 sm:right-4"
     >
       <span className="text-[12px] font-[700] tracking-[0.14em] text-[#173363]">
