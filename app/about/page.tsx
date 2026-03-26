@@ -1,0 +1,19 @@
+import AboutHero from "@/components/about/AboutHero";
+import CoreValues from "@/components/about/CoreValues";
+import JourneyTimeline from "@/components/about/JourneyTimeline";
+import ManagingDirector from "@/components/about/ManagingDirector";
+import PrideEcosystem from "@/components/about/PrideEcosystem";
+import VisionMission from "@/components/about/VisionMission";
+
+export default function AboutUs() {
+  return (
+    <>
+      <AboutHero />
+      <VisionMission />
+      <CoreValues />
+      <JourneyTimeline />
+      <ManagingDirector />
+      <PrideEcosystem />
+    </>
+  );
+}
