@@ -231,23 +231,29 @@ export default function OutlookSection() {
         <div className="flex flex-col justify-center bg-[#173566] px-5 py-10 text-white sm:px-8 sm:py-12 md:px-10 lg:min-h-[50vh] lg:px-[60px] lg:py-[34px]">
           <div className="max-w-[610px]">
             <h2 className="text-[30px] leading-[1.12] sm:text-[36px] md:text-[40px] lg:text-[45px]">
-              <TextReveal text={"Global in Outlook.\nRooted in Life."} />
+              <TextReveal text={"Built on Conviction. \nRecognised by Results."} />
             </h2>
 
             <FadeUp delay={120} className="mt-4">
               <p className="text-[14px] leading-[1.8] text-white/90 sm:text-[15px] lg:text-[16px] lg:leading-[1.75]">
-                Pride Group builds across cities with a consistent way of
-                thinking—thoughtful planning, disciplined execution, and spaces
-                shaped around how people truly live.
+               Pride Group is known to set the market standard — through fair dealing, meticulous planning, and an unbroken record of delivery. 
               </p>
             </FadeUp>
 
             <FadeUp delay={240} className="mt-4">
               <p className="text-[14px] leading-[1.8] text-white/90 sm:text-[15px] lg:text-[16px] lg:leading-[1.75]">
-                From homes to larger communities, the focus remains on lasting
-                quality, everyday functionality, and long-term trust.
+               Where We Build, We Build to Last. Across three of India's fastest-growing urban markets, Pride Group brings the same planning discipline, delivery record, and design rigour to every project it undertakes.
               </p>
             </FadeUp>
+
+
+ <FadeUp delay={240} className="mt-4">
+              <p className="text-[14px] leading-[1.8] text-white/90 sm:text-[15px] lg:text-[16px] lg:leading-[1.75]">
+              Building with Pride
+This is an operating standard that has guided every project, every decision, and every delivery since day one.
+              </p>
+            </FadeUp>
+            
           </div>
 
           <Link
