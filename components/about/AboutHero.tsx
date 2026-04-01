@@ -98,7 +98,7 @@ export default function AboutHero() {
       {/* TEXT AREA */}
       <div className="mt-[10%] px-5 pt-20 pb-8 md:mt-0 sm:px-8 sm:pt-24 sm:pb-10 md:px-10 md:pt-28 md:pb-12 lg:px-12 xl:px-16">
         <div className="max-w-[1200px]">
-          <h1 className="text-[28px] leading-[1.4] text-[#2b2b2b] sm:text-[32px] md:text-[36px] lg:text-[40px]">
+          <h1 className="text-[28px] leading-[1.4] text-[#1f3f6b] sm:text-[32px] md:text-[36px] lg:text-[40px]">
             <TextReveal>{"Building Tomorrow. Today."}</TextReveal>
           </h1>
 

@@ -92,11 +92,11 @@ export default function ProjectOverview({ project }: { project: Project }) {
               </div>
             </div>
 
-            <div className="mt-10">
+            {/* <div className="mt-10">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   <h3 className="text-[34px] font-[500] leading-none text-black sm:text-[42px]">
-                    Key Amenities
+                    Amenities
                   </h3>
                 </div>
 
@@ -119,7 +119,7 @@ export default function ProjectOverview({ project }: { project: Project }) {
                   </span>
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="space-y-6 lg:sticky lg:top-28 lg:h-fit">
@@ -162,46 +162,50 @@ export default function ProjectOverview({ project }: { project: Project }) {
 
             <div
               id="contact-us"
-              className="scroll-mt-36 rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_10px_30px_rgba(0,0,0,0.08)] sm:p-6"
+              className="scroll-mt-36 rounded-[10px] border border-black/10 bg-white p-5 shadow-[0_10px_30px_rgba(0,0,0,0.08)] sm:p-6"
             >
               <h3 className="text-[22px] font-[500] text-black sm:text-[26px]">
                 Enquiry Form
               </h3>
 
-              <form className="mt-5 grid gap-4">
+              <form className="mt-5 grid gap-4 sm:grid-cols-2">
                 <input
                   type="text"
                   placeholder="Name"
                   className="h-[54px] rounded-[10px] border border-black/20 px-4 text-[15px] outline-none transition focus:border-black"
                 />
+
                 <input
                   type="email"
                   placeholder="Email"
                   className="h-[54px] rounded-[10px] border border-black/20 px-4 text-[15px] outline-none transition focus:border-black"
                 />
+
                 <input
                   type="tel"
                   placeholder="Contact No."
+                  className="h-[54px] rounded-[10px] border border-black/20 px-4 text-[15px] outline-none transition focus:border-black "
+                />
+
+                <input
+                  type="message"
+                  placeholder="Message"
                   className="h-[54px] rounded-[10px] border border-black/20 px-4 text-[15px] outline-none transition focus:border-black"
                 />
+
                 <select
                   defaultValue=""
-                  className="h-[54px] rounded-[10px] border border-black/20 bg-white px-4 text-[15px] text-black/70 outline-none transition focus:border-black"
+                  className="h-[54px] rounded-[10px] border border-black/20 bg-white px-4 text-[15px] text-black/70 outline-none transition focus:border-black sm:col-span-2"
                 >
                   <option value="" disabled>
                     Select Configuration
                   </option>
                   <option value="3 BHK">3 BHK</option>
                 </select>
-                <textarea
-                  rows={5}
-                  placeholder="Message"
-                  className="rounded-[10px] border border-black/20 px-4 py-4 text-[15px] outline-none transition focus:border-black"
-                />
 
                 <button
                   type="submit"
-                  className="h-[52px] rounded-[10px] bg-[#173363] text-[18px] font-[500] text-white transition hover:opacity-90"
+                  className="h-[52px] rounded-[10px] bg-[#173363] text-[18px] font-[500] text-white transition hover:opacity-90 sm:col-span-2"
                 >
                   Submit Enquiry
                 </button>

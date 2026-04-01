@@ -55,9 +55,9 @@ export default function ProjectStickyNav() {
       }`}
     >
       <div className="border-b border-black/10 bg-white/96 shadow-[0_10px_30px_rgba(0,0,0,0.08)] backdrop-blur-md">
-        <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
-          <div className="flex justify-center overflow-x-auto py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <div className="pointer-events-auto flex min-w-max items-center justify-center gap-2">
+                <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
+          <div className="overflow-x-auto py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="pointer-events-auto flex min-w-max items-center gap-2 sm:justify-center">
               {navItems.map((item) => (
                 <button
                   key={item.target}

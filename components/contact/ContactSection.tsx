@@ -7,8 +7,7 @@ const offices = [
     city: "PUNE OFFICE",
     address: [
       "Pride House, 5th Floor,",
-      "108, Ganeshkhind Road, Near Pune University,",
-      "Pune – 411016",
+      "108, Ganeshkhind Road, Near Pune University, Pune – 411016",
     ],
     phone: "8055538000 , 020 - 67091000",
     email: "pune@pridegroup.net",
@@ -32,6 +31,12 @@ const offices = [
     ],
     phone: "022 2421 8129, 022 2421 8130",
     email: "mumbai@pridegroup.net",
+  },
+  {
+    city: "PRIDE WORLD CITY, PUNE",
+    address: ["Pride World City, ", "Charholi Bk,", "Pune - 411081"],
+    phone: "+91 80555 46000",
+    email: "digital@prideworldcity.com",
   },
 ];
 
@@ -63,7 +68,7 @@ export default function ContactSection() {
         </div>
 
         {/* ================= OFFICES GRID ================= */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {offices.map((office, index) => (
             <div
               key={office.city}

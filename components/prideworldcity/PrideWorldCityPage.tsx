@@ -15,7 +15,14 @@ import {
   type TownshipStatus,
 } from "@/data/prideWorldCity";
 
-const statusOptions: TownshipStatus[] = ["Completed", "Ongoing", "Upcoming"];
+type TownshipMapStatus = "All" | TownshipStatus;
+
+const statusOptions: TownshipMapStatus[] = [
+  "All",
+  "Completed",
+  "Ongoing",
+  "Upcoming",
+];
 
 function SectionIntro({
   eyebrow,
@@ -29,7 +36,8 @@ function SectionIntro({
   align?: "left" | "center";
 }) {
   const textAlign = align === "center" ? "text-center" : "text-left";
-  const maxWidth = align === "center" ? "mx-auto max-w-[840px]" : "max-w-[760px]";
+  const maxWidth =
+    align === "center" ? "mx-auto max-w-[840px]" : "max-w-[760px]";
 
   return (
     <div className={`${maxWidth} ${textAlign}`}>
@@ -55,7 +63,7 @@ function SectionIntro({
 function getStatusPalette(status: TownshipStatus) {
   if (status === "Completed") {
     return {
-      dot: "bg-[#173363]",
+      icon: "text-[#173363]",
       pill: "bg-[#173363] text-white",
       border: "border-[#173363]/25",
     };
@@ -63,17 +71,79 @@ function getStatusPalette(status: TownshipStatus) {
 
   if (status === "Ongoing") {
     return {
-      dot: "bg-[#c9991a]",
+      icon: "text-[#c9991a]",
       pill: "bg-[#fff2cf] text-[#8b6610]",
       border: "border-[#c9991a]/25",
     };
   }
 
   return {
-    dot: "bg-[#7f8ea8]",
+    icon: "text-[#7f8ea8]",
     pill: "bg-[#eef2f7] text-[#51627f]",
     border: "border-[#7f8ea8]/25",
   };
+}
+
+function StatusIcon({
+  status,
+  active = false,
+  className = "h-5 w-5",
+}: {
+  status: TownshipStatus;
+  active?: boolean;
+  className?: string;
+}) {
+  const base = active ? "text-white" : getStatusPalette(status).icon;
+
+  if (status === "Completed") {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+        className={`${className} ${base}`}
+        fill="none"
+      >
+        <circle
+          cx="12"
+          cy="12"
+          r="8.5"
+          stroke="currentColor"
+          strokeWidth="2"
+        />
+        <path
+          d="M8.5 12.2l2.2 2.3 4.8-5"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
+
+  if (status === "Ongoing") {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+        className={`${className} ${base}`}
+        fill="currentColor"
+      >
+        <rect x="6" y="6" width="12" height="12" rx="1.5" transform="rotate(45 12 12)" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className={`${className} ${base}`}
+      fill="currentColor"
+    >
+      <path d="M12 5.2L19 18H5L12 5.2Z" />
+    </svg>
+  );
 }
 
 function ProjectCard({
@@ -128,7 +198,7 @@ function ProjectCard({
     return (
       <a
         href={href}
-        className="group overflow-hidden rounded-[28px] border border-[#d8d9df] bg-white shadow-[0_18px_44px_rgba(15,31,58,0.08)] transition duration-300 hover:-translate-y-1"
+        className="group overflow-hidden rounded-[10px] border border-[#d8d9df] bg-white shadow-[0_18px_44px_rgba(15,31,58,0.08)] transition duration-300 hover:-translate-y-1"
       >
         {content}
       </a>
@@ -138,7 +208,7 @@ function ProjectCard({
   return (
     <Link
       href={href}
-      className="group overflow-hidden rounded-[28px] border border-[#d8d9df] bg-white shadow-[0_18px_44px_rgba(15,31,58,0.08)] transition duration-300 hover:-translate-y-1"
+      className="group overflow-hidden rounded-[10px] border border-[#d8d9df] bg-white shadow-[0_18px_44px_rgba(15,31,58,0.08)] transition duration-300 hover:-translate-y-1"
     >
       {content}
     </Link>
@@ -146,25 +216,37 @@ function ProjectCard({
 }
 
 export default function PrideWorldCityPage() {
-  const [activeStatus, setActiveStatus] = useState<TownshipStatus>("Ongoing");
+  const [activeStatus, setActiveStatus] = useState<TownshipMapStatus>("All");
   const [activeTitle, setActiveTitle] = useState("Wellington");
   const [lifeVisible, setLifeVisible] = useState(false);
   const brandFilmRef = useRef<HTMLVideoElement | null>(null);
   const brandFilmSectionRef = useRef<HTMLElement | null>(null);
   const lifeSectionRef = useRef<HTMLElement | null>(null);
 
-  const filteredHotspots = prideWorldCityHotspots.filter(
-    (hotspot) => hotspot.status === activeStatus,
-  );
+  const filteredHotspots =
+    activeStatus === "All"
+      ? prideWorldCityHotspots
+      : prideWorldCityHotspots.filter(
+          (hotspot) => hotspot.status === activeStatus,
+        );
+
   const filteredProjects = filteredHotspots.filter(
     (hotspot) => hotspot.category === "Projects",
   );
+
   const filteredAmenities = filteredHotspots.filter(
     (hotspot) => hotspot.category !== "Projects",
   );
+
   const activeHotspot =
     filteredHotspots.find((hotspot) => hotspot.title === activeTitle) ||
     filteredHotspots[0];
+
+  useEffect(() => {
+    if (!activeHotspot && filteredHotspots.length > 0) {
+      setActiveTitle(filteredHotspots[0].title);
+    }
+  }, [activeHotspot, filteredHotspots]);
 
   useEffect(() => {
     const videoElement = brandFilmRef.current;
@@ -258,7 +340,7 @@ export default function PrideWorldCityPage() {
               {prideWorldCityStats.map((stat) => (
                 <div
                   key={stat.label}
-                  className="flex min-h-[118px] flex-col items-start justify-center rounded-[22px] border border-white/10 bg-white/6 px-5 py-5 backdrop-blur-md"
+                  className="flex min-h-[118px] flex-col items-start justify-center rounded-[10px] border border-white/10 bg-white/6 px-5 py-5 backdrop-blur-md"
                 >
                   <div className="whitespace-nowrap text-[24px] leading-none text-white sm:text-[28px]">
                     {stat.value}
@@ -272,8 +354,8 @@ export default function PrideWorldCityPage() {
           </div>
 
           <div className="relative z-10">
-            <div className="relative overflow-hidden rounded-[34px] border border-white/10 bg-white/6 p-3 shadow-[0_22px_60px_rgba(0,0,0,0.28)] backdrop-blur-md">
-              <div className="relative aspect-[4/4.5] overflow-hidden rounded-[28px]">
+            <div className="relative overflow-hidden rounded-[10px] border border-white/10 bg-white/6 p-3 shadow-[0_22px_60px_rgba(0,0,0,0.28)] backdrop-blur-md">
+              <div className="relative aspect-[4/4.5] overflow-hidden rounded-[10px]">
                 <Image
                   src="/images/Master-Planning.jpg"
                   alt="Pride World City master planning"
@@ -310,7 +392,7 @@ export default function PrideWorldCityPage() {
             {prideWorldCityNarrativePillars.map((pillar) => (
               <div
                 key={pillar.title}
-                className="rounded-[24px] border border-[#ddd5c8] bg-white px-5 py-6 shadow-[0_16px_40px_rgba(15,31,58,0.06)]"
+                className="rounded-[10px] border border-[#ddd5c8] bg-white px-5 py-6 shadow-[0_16px_40px_rgba(15,31,58,0.06)]"
               >
                 <div className="h-1.5 w-14 rounded-full bg-[#c9991a]" />
                 <h3 className="mt-5 text-[24px] leading-[1.1] text-[#10203b]">
@@ -332,144 +414,150 @@ export default function PrideWorldCityPage() {
         <div className="mx-auto max-w-[1500px] px-4 sm:px-6 lg:px-10">
           <SectionIntro align="center" title="Explore the Township" />
 
-          <div className="mt-10 grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_minmax(340px,0.92fr)]">
+          <div className="mt-10 grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_minmax(340px,0.92fr)] xl:items-stretch">
             <div className="space-y-6">
-              <div className="rounded-[32px] border border-[#d7d0c3] bg-white p-4 shadow-[0_18px_44px_rgba(15,31,58,0.08)] sm:p-5">
-              <div className="flex flex-wrap items-center justify-between gap-3 px-1 pb-4">
-                <div className="flex flex-wrap gap-2">
-                  {statusOptions.map((status) => {
-                    const active = status === activeStatus;
+              <div className="rounded-[10px] border border-[#d7d0c3] bg-white p-4 shadow-[0_18px_44px_rgba(15,31,58,0.08)] sm:p-5 xl:flex xl:h-[744px] xl:flex-col">
+                <div className="flex flex-wrap items-center justify-between gap-3 px-1 pb-4">
+                  <div className="flex flex-wrap gap-2">
+                    {statusOptions.map((status) => {
+                      const active = status === activeStatus;
 
-                    return (
-                      <button
-                        key={status}
-                        type="button"
-                        onClick={() => {
-                          setActiveStatus(status);
-                          const firstHotspot = prideWorldCityHotspots.find(
-                            (hotspot) => hotspot.status === status,
-                          );
+                      return (
+                        <button
+                          key={status}
+                          type="button"
+                          onClick={() => {
+                            setActiveStatus(status);
 
-                          if (firstHotspot) {
-                            setActiveTitle(firstHotspot.title);
-                          }
-                        }}
-                        className={`rounded-full px-4 py-2 text-[12px] font-[700] uppercase tracking-[0.08em] transition ${
-                          active
-                            ? "bg-[#173363] text-white"
-                            : "bg-[#f4efe6] text-[#173363] hover:bg-[#e7e0d2]"
-                        }`}
-                      >
-                        {status}
-                      </button>
-                    );
-                  })}
-                </div>
+                            const hotspotsForStatus =
+                              status === "All"
+                                ? prideWorldCityHotspots
+                                : prideWorldCityHotspots.filter(
+                                    (hotspot) => hotspot.status === status,
+                                  );
 
-                <div className="flex flex-wrap gap-3 text-[11px] font-[700] uppercase tracking-[0.1em] text-[#173363]/60">
-                  {statusOptions.map((status) => {
-                    const palette = getStatusPalette(status);
-
-                    return (
-                      <span key={status} className="inline-flex items-center gap-2">
-                        <span className={`h-2.5 w-2.5 rounded-full ${palette.dot}`} />
-                        {status}
-                      </span>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className="relative overflow-hidden rounded-[26px] bg-[#fbf8f2]">
-                <div className="relative aspect-[5/4]">
-                  <Image
-                    src="/images/Master-Planning.jpg"
-                    alt="Pride World City township map"
-                    fill
-                    sizes="(max-width: 1280px) 100vw, 60vw"
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-tr from-[#10203b]/14 via-transparent to-[#c9991a]/12" />
-
-                  {filteredHotspots.map((hotspot) => {
-                    const active = activeHotspot?.title === hotspot.title;
-                    const palette = getStatusPalette(hotspot.status);
-
-                    return (
-                      <button
-                        key={hotspot.title}
-                        type="button"
-                        onClick={() => setActiveTitle(hotspot.title)}
-                        style={{ left: hotspot.x, top: hotspot.y }}
-                        className={`absolute z-10 -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-white shadow-lg transition ${
-                          active
-                            ? activeStatus === "Ongoing"
-                              ? "scale-110 bg-[#173363] text-white"
-                              : "scale-110 bg-[#10203b] text-white"
-                            : `bg-white text-[#10203b] ${palette.border}`
-                        }`}
-                        aria-label={`View ${hotspot.title}`}
-                      >
-                        <span
-                          className={`block h-5 w-5 rounded-full ${
+                            if (hotspotsForStatus.length > 0) {
+                              setActiveTitle(hotspotsForStatus[0].title);
+                            }
+                          }}
+                          className={`cursor-pointer rounded-full px-4 py-2 text-[12px] font-[700] uppercase tracking-[0.08em] transition ${
                             active
-                              ? activeStatus === "Ongoing"
-                                ? "bg-white"
-                                : "bg-[#c9991a]"
-                              : palette.dot
+                              ? "bg-[#173363] text-white"
+                              : "bg-[#f4efe6] text-[#173363] hover:bg-[#e7e0d2]"
                           }`}
-                        />
-                      </button>
-                    );
-                  })}
+                        >
+                          {status}
+                        </button>
+                      );
+                    })}
+                  </div>
 
-                  {activeHotspot ? (
-                    <div
-                      style={{ left: activeHotspot.x, top: activeHotspot.y }}
-                      className="absolute z-20 -translate-x-1/2 [-translate-y:calc(100%+20px)]"
-                    >
-                      <div className="min-w-[170px] rounded-[18px] border border-white/80 bg-white/96 px-4 py-3 text-left shadow-[0_18px_36px_rgba(15,31,58,0.16)] backdrop-blur-sm">
-                        <p className="text-[15px] font-[700] leading-snug text-[#10203b]">
-                          {activeHotspot.title}
-                        </p>
-                        {activeHotspot.category === "Projects" &&
-                        activeHotspot.configuration ? (
-                          <p className="mt-1 text-[12px] font-[600] uppercase tracking-[0.08em] text-[#173363]/72">
-                            {activeHotspot.configuration}
+                  <div className="flex flex-wrap gap-3 text-[11px] font-[700] uppercase tracking-[0.1em] text-[#173363]/60">
+                    {(
+                      ["Completed", "Ongoing", "Upcoming"] as TownshipStatus[]
+                    ).map((status) => {
+                      return (
+                        <span
+                          key={status}
+                          className="inline-flex items-center gap-2"
+                        >
+                          <StatusIcon status={status} className="h-4 w-4" />
+                          {status}
+                        </span>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="relative overflow-hidden rounded-[10px] bg-[#fbf8f2] xl:flex-1">
+                  <div className="relative aspect-square xl:h-full xl:min-h-0 xl:aspect-auto">
+                    <Image
+                      src="/images/PWC-Plan.png"
+                      alt="Pride World City township map"
+                      fill
+                      sizes="(max-width: 1280px) 100vw, 60vw"
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-[#10203b]/14 via-transparent to-[#c9991a]/12" />
+
+                    {filteredHotspots.map((hotspot) => {
+                      const active = activeHotspot?.title === hotspot.title;
+                      const palette = getStatusPalette(hotspot.status);
+
+                      return (
+                        <button
+                          key={hotspot.title}
+                          type="button"
+                          onClick={() => setActiveTitle(hotspot.title)}
+                          style={{ left: hotspot.x, top: hotspot.y }}
+                          className={`absolute z-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full border-2 border-white bg-white p-1.5 shadow-lg transition ${
+                            active
+                              ? "scale-110 bg-[#173363] text-white"
+                              : `text-[#10203b] ${palette.border}`
+                          }`}
+                          aria-label={`View ${hotspot.title}`}
+                        >
+                          <StatusIcon
+                            status={hotspot.status}
+                            active={active}
+                            className="h-5 w-5"
+                          />
+                        </button>
+                      );
+                    })}
+
+                    {activeHotspot ? (
+                      <div
+                        style={{ left: activeHotspot.x, top: activeHotspot.y }}
+                        className="absolute z-20 -translate-x-1/2 [-translate-y:calc(100%+20px)]"
+                      >
+                        <div className="min-w-[170px] rounded-[10px] border border-white/80 bg-white/96 px-4 py-3 text-left shadow-[0_18px_36px_rgba(15,31,58,0.16)] backdrop-blur-sm">
+                          <p className="text-[15px] font-[700] leading-snug text-[#10203b]">
+                            {activeHotspot.title}
                           </p>
-                        ) : null}
-                        {activeStatus === "Ongoing" &&
-                        activeHotspot.category === "Projects" &&
-                        activeHotspot.href ? (
-                          activeHotspot.href.startsWith("/") ? (
-                            <Link
-                              href={activeHotspot.href}
-                              className="mt-2 inline-block text-[12px] font-[700] uppercase tracking-[0.08em] text-[#173363] underline underline-offset-4"
-                            >
-                              View Project
-                            </Link>
-                          ) : (
-                            <a
-                              href={activeHotspot.href}
-                              className="mt-2 inline-block text-[12px] font-[700] uppercase tracking-[0.08em] text-[#173363] underline underline-offset-4"
-                            >
-                              View Project
-                            </a>
-                          )
-                        ) : null}
+                          {activeHotspot.category === "Projects" &&
+                          activeHotspot.configuration ? (
+                            <p className="mt-1 text-[12px] font-[600] uppercase tracking-[0.08em] text-[#173363]/72">
+                              {activeHotspot.configuration}
+                            </p>
+                          ) : null}
+
+                          {activeHotspot.category === "Projects" &&
+                          activeHotspot.href ? (
+                            activeHotspot.href.startsWith("/") ? (
+                              <Link
+                                href={activeHotspot.href}
+                                className="mt-2 inline-block text-[12px] font-[700] uppercase tracking-[0.08em] text-[#173363] underline underline-offset-4"
+                              >
+                                View Project
+                              </Link>
+                            ) : (
+                              <a
+                                href={activeHotspot.href}
+                                className="mt-2 inline-block text-[12px] font-[700] uppercase tracking-[0.08em] text-[#173363] underline underline-offset-4"
+                              >
+                                View Project
+                              </a>
+                            )
+                          ) : null}
+                        </div>
+                        <div className="mx-auto h-3 w-3 rotate-45 border-b border-r border-white bg-white/96 shadow-[8px_8px_18px_rgba(15,31,58,0.06)]" />
                       </div>
-                      <div className="mx-auto h-3 w-3 rotate-45 border-b border-r border-white bg-white/96 shadow-[8px_8px_18px_rgba(15,31,58,0.06)]" />
-                    </div>
-                  ) : null}
+                    ) : null}
+                  </div>
                 </div>
               </div>
-            </div>
             </div>
 
             <div className="space-y-6 xl:sticky xl:top-28 xl:h-fit">
-              <div className="rounded-[28px] border border-[#d9d7d0] bg-white p-6 shadow-[0_18px_44px_rgba(15,31,58,0.08)] sm:p-8">
+              <div
+                data-lenis-prevent
+                className="h-[360px] overflow-y-auto rounded-[10px] border border-[#d9d7d0] bg-white p-6 shadow-[0_18px_44px_rgba(15,31,58,0.08)] sm:p-8"
+              >
                 <p className="text-[12px] font-[700] uppercase tracking-[0.16em] text-[#173363]/70">
-                  {activeStatus} Projects
+                  {activeStatus === "All"
+                    ? "All Projects"
+                    : `${activeStatus} Projects`}
                 </p>
                 <div className="mt-5 grid gap-3 md:grid-cols-2">
                   {filteredProjects.map((hotspot) => (
@@ -477,7 +565,7 @@ export default function PrideWorldCityPage() {
                       key={hotspot.title}
                       type="button"
                       onClick={() => setActiveTitle(hotspot.title)}
-                      className={`flex w-full items-center justify-between rounded-[18px] border px-4 py-4 text-left transition ${
+                      className={`flex w-full cursor-pointer items-center justify-between rounded-[10px] border px-4 py-4 text-left transition ${
                         activeHotspot?.title === hotspot.title
                           ? "border-[#173363] bg-[#173363] text-white"
                           : "border-[#e5dfd4] bg-[#fbf8f3] text-[#10203b] hover:border-[#173363]/30"
@@ -497,9 +585,14 @@ export default function PrideWorldCityPage() {
                 </div>
               </div>
 
-              <div className="rounded-[28px] border border-[#d9d7d0] bg-white p-6 shadow-[0_18px_44px_rgba(15,31,58,0.08)] sm:p-8">
+              <div
+                data-lenis-prevent
+                className="h-[360px] overflow-y-auto rounded-[10px] border border-[#d9d7d0] bg-white p-6 shadow-[0_18px_44px_rgba(15,31,58,0.08)] sm:p-8"
+              >
                 <p className="text-[12px] font-[700] uppercase tracking-[0.16em] text-[#173363]/70">
-                  {activeStatus} Township Amenities
+                  {activeStatus === "All"
+                    ? "All Township Amenities"
+                    : `${activeStatus} Township Amenities`}
                 </p>
                 <div className="mt-5 grid gap-3 md:grid-cols-2">
                   {filteredAmenities.map((hotspot) => (
@@ -507,7 +600,7 @@ export default function PrideWorldCityPage() {
                       key={hotspot.title}
                       type="button"
                       onClick={() => setActiveTitle(hotspot.title)}
-                      className={`flex w-full items-center justify-between rounded-[18px] border px-4 py-4 text-left transition ${
+                      className={`flex w-full cursor-pointer items-center justify-between rounded-[10px] border px-4 py-4 text-left transition ${
                         activeHotspot?.title === hotspot.title
                           ? "border-[#173363] bg-[#173363] text-white"
                           : "border-[#e5dfd4] bg-[#fbf8f3] text-[#10203b] hover:border-[#173363]/30"
@@ -544,7 +637,7 @@ export default function PrideWorldCityPage() {
             {prideWorldCityClusters.map((cluster, index) => (
               <div
                 key={cluster.title}
-                className={`overflow-hidden rounded-[30px] border border-[#e4ddd2] p-6 shadow-[0_18px_44px_rgba(15,31,58,0.06)] sm:p-8 ${
+                className={`overflow-hidden rounded-[10px] border border-[#e4ddd2] p-6 shadow-[0_18px_44px_rgba(15,31,58,0.06)] sm:p-8 ${
                   index % 2 === 0 ? "bg-[#f9f5ed]" : "bg-[#f3f6fb]"
                 }`}
               >
@@ -562,7 +655,7 @@ export default function PrideWorldCityPage() {
                   </div>
 
                   <div className="lg:w-[42%]">
-                    <div className="rounded-[24px] bg-white/75 p-5">
+                    <div className="rounded-[10px] bg-white/75 p-5">
                       <p className="text-[11px] font-[700] uppercase tracking-[0.16em] text-[#c9991a]">
                         Proof Points
                       </p>
@@ -570,7 +663,7 @@ export default function PrideWorldCityPage() {
                         {cluster.proof.map((item) => (
                           <div
                             key={item}
-                            className="rounded-[16px] border border-[#ece3d4] bg-white px-4 py-3 text-[14px] leading-[1.7] text-[#26344e]/76"
+                            className="rounded-[10px] border border-[#ece3d4] bg-white px-4 py-3 text-[14px] leading-[1.7] text-[#26344e]/76"
                           >
                             {item}
                           </div>
@@ -599,7 +692,7 @@ export default function PrideWorldCityPage() {
             </h2>
           </div>
 
-          <div className="mt-10 overflow-hidden rounded-[34px] border border-white/10 bg-white/6 p-3 shadow-[0_24px_64px_rgba(0,0,0,0.28)]">
+          <div className="mt-10 overflow-hidden rounded-[10px] border border-white/10 bg-white/6 p-3 shadow-[0_24px_64px_rgba(0,0,0,0.28)]">
             <video
               ref={brandFilmRef}
               src="https://www.prideworldcity.com/wp-content/uploads/2025/03/freecompress-PRIDE_WORLD_CITY_cinematic_screen.mp4"
@@ -609,7 +702,7 @@ export default function PrideWorldCityPage() {
               loop
               playsInline
               preload="metadata"
-              className="aspect-video w-full rounded-[28px] object-cover"
+              className="aspect-video w-full rounded-[10px] object-cover"
             />
           </div>
         </div>
@@ -646,7 +739,7 @@ export default function PrideWorldCityPage() {
             {prideWorldCityExperiences.map((experience, index) => (
               <div
                 key={experience.title}
-                className={`rounded-[30px] border p-6 shadow-[0_18px_44px_rgba(15,31,58,0.06)] sm:p-8 ${
+                className={`rounded-[10px] border p-6 shadow-[0_18px_44px_rgba(15,31,58,0.06)] sm:p-8 ${
                   index === 0
                     ? "border-[#173363]/18 bg-[#173363] text-white"
                     : "border-[#e4ddd2] bg-[#f9f5ed] text-[#10203b]"
@@ -673,7 +766,7 @@ export default function PrideWorldCityPage() {
                   {experience.bullets.map((item) => (
                     <div
                       key={item}
-                      className={`rounded-[18px] px-4 py-3 text-[14px] leading-[1.7] ${
+                      className={`rounded-[10px] px-4 py-3 text-[14px] leading-[1.7] ${
                         index === 0
                           ? "bg-white/8 text-white/84"
                           : "bg-white text-[#26344e]/75"
@@ -705,7 +798,7 @@ export default function PrideWorldCityPage() {
               {prideWorldCityLifeImages.map((src, index) => (
                 <div
                   key={src}
-                  className={`relative overflow-hidden rounded-[22px] transition-all duration-700 ${
+                  className={`relative overflow-hidden rounded-[10px] transition-all duration-700 ${
                     lifeVisible
                       ? "translate-y-0 opacity-100"
                       : "translate-y-8 opacity-0"
@@ -734,7 +827,6 @@ export default function PrideWorldCityPage() {
                 </div>
               ))}
             </div>
-
           </div>
         </div>
       </section>
@@ -754,7 +846,7 @@ export default function PrideWorldCityPage() {
           </div>
 
           <div className="mt-12 grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(340px,0.9fr)]">
-            <div className="rounded-[30px] border border-white/10 bg-white/6 p-6 shadow-[0_18px_44px_rgba(0,0,0,0.2)] backdrop-blur-md sm:p-8">
+            <div className="rounded-[10px] border border-white/10 bg-white/6 p-6 shadow-[0_18px_44px_rgba(0,0,0,0.2)] backdrop-blur-md sm:p-8">
               <p className="text-[12px] font-[700] uppercase tracking-[0.16em] text-[#f0d89a]">
                 Primary Access
               </p>
@@ -762,7 +854,7 @@ export default function PrideWorldCityPage() {
                 {prideWorldCityConnectivity.primary.map((item) => (
                   <div
                     key={item.title}
-                    className="flex items-center justify-between gap-4 rounded-[18px] bg-white/6 px-4 py-4"
+                    className="flex items-center justify-between gap-4 rounded-[10px] bg-white/6 px-4 py-4"
                   >
                     <span className="text-[15px] leading-snug text-white/82">
                       {item.title}
@@ -775,7 +867,7 @@ export default function PrideWorldCityPage() {
               </div>
             </div>
 
-            <div className="rounded-[30px] border border-white/10 bg-white/6 p-6 shadow-[0_18px_44px_rgba(0,0,0,0.2)] backdrop-blur-md sm:p-8">
+            <div className="rounded-[10px] border border-white/10 bg-white/6 p-6 shadow-[0_18px_44px_rgba(0,0,0,0.2)] backdrop-blur-md sm:p-8">
               <p className="text-[12px] font-[700] uppercase tracking-[0.16em] text-[#f0d89a]">
                 Growth Corridor
               </p>
@@ -783,7 +875,7 @@ export default function PrideWorldCityPage() {
                 {prideWorldCityConnectivity.secondary.map((item) => (
                   <div
                     key={item.title}
-                    className="flex items-center justify-between gap-4 rounded-[18px] bg-white/6 px-4 py-4"
+                    className="flex items-center justify-between gap-4 rounded-[10px] bg-white/6 px-4 py-4"
                   >
                     <span className="text-[15px] leading-snug text-white/82">
                       {item.title}
@@ -796,7 +888,7 @@ export default function PrideWorldCityPage() {
               </div>
             </div>
 
-            <div className="overflow-hidden rounded-[30px] border border-white/10 bg-white shadow-[0_18px_44px_rgba(0,0,0,0.2)]">
+            <div className="overflow-hidden rounded-[10px] border border-white/10 bg-white shadow-[0_18px_44px_rgba(0,0,0,0.2)]">
               <iframe
                 title="Pride World City satellite map"
                 src="https://maps.google.com/maps?q=Pride%20World%20City%20Charholi%20Pune&t=k&z=15&output=embed"
@@ -811,7 +903,7 @@ export default function PrideWorldCityPage() {
 
       <section className="bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-10">
-          <div className="rounded-[34px] border border-[#ddd6ca] bg-[linear-gradient(135deg,#f8f1e1_0%,#ffffff_52%,#f2f5fb_100%)] px-6 py-10 text-center shadow-[0_20px_48px_rgba(15,31,58,0.08)] sm:px-8 sm:py-14">
+          <div className="rounded-[10px] border border-[#ddd6ca] bg-[linear-gradient(135deg,#f8f1e1_0%,#ffffff_52%,#f2f5fb_100%)] px-6 py-10 text-center shadow-[0_20px_48px_rgba(15,31,58,0.08)] sm:px-8 sm:py-14">
             <h2 className="mx-auto max-w-[720px] text-[22px] leading-[1.18] text-[#10203b] sm:text-[26px] lg:text-[28px]">
               Explore Pride World City as a township first,
               <br />

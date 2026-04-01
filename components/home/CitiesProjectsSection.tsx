@@ -8,15 +8,34 @@ import { useMemo, useState } from "react";
 
 type CityKey = "pune" | "mumbai" | "bangalore";
 
+type Project = {
+  title: string;
+  subtitle: string;
+  description: string;
+  location: string;
+  image: string;
+  href: string;
+};
+
+type City = {
+  key: CityKey;
+  name: string;
+  description: string;
+  cta: string;
+  cardBgImage: string;
+  projects: Project[];
+};
+
 /* ---------------- DATA ---------------- */
 
-const cityData = [
+const cityData: City[] = [
   {
-    key: "pune" as CityKey,
+    key: "pune",
     name: "Pune",
     description:
       "Where Pride’s journey took shape, and where it continues at its most ambitious scale.",
     cta: "Explore Projects in Pune",
+    cardBgImage: "",
     projects: [
       {
         title: "Wellington",
@@ -48,29 +67,12 @@ const cityData = [
     ],
   },
   {
-    key: "mumbai" as CityKey,
-    name: "Mumbai",
-    description:
-      "In a city that values conviction, we build with clarity and discipline.",
-    cta: "Explore Projects in Mumbai",
-    projects: [
-      {
-        title: "Park Royale",
-        subtitle: "2 & 3 BHK Apartments",
-        description:
-          "Park Royale comes loaded with attributes and amenities that add charm to your way of life and makes living an experience you will relish day after day, minute after minute at Marol.",
-        location: "Andheri East, Mumbai",
-        image: "/images/projects/park-royale.jpg",
-        href: "#",
-      },
-    ],
-  },
-  {
-    key: "bangalore" as CityKey,
+    key: "bangalore",
     name: "Bangalore",
     description:
       "In a fast-evolving city, we create homes designed for lasting value.",
     cta: "Explore Projects in Bangalore",
+    cardBgImage: "/images/Long-Term-Thinking.jpg",
     projects: [
       {
         title: "Pride Cross Winds",
@@ -97,6 +99,25 @@ const cityData = [
           "We believe in something, only then we can translate into reality a bold & modern architectural icon combined with the best in living.",
         location: "Tumkur Road, Bangalore West",
         image: "/images/projects/pride-altius.jpg",
+        href: "#",
+      },
+    ],
+  },
+  {
+    key: "mumbai",
+    name: "Mumbai",
+    description:
+      "In a city that values conviction, we build with clarity and discipline.",
+    cta: "Explore Projects in Mumbai",
+    cardBgImage: "/images/Mumbai.png",
+    projects: [
+      {
+        title: "Park Royale",
+        subtitle: "2 & 3 BHK Apartments",
+        description:
+          "Park Royale comes loaded with attributes and amenities that add charm to your way of life and makes living an experience you will relish day after day, minute after minute at Marol.",
+        location: "Andheri East, Mumbai",
+        image: "/images/projects/park-royale.jpg",
         href: "#",
       },
     ],
@@ -135,6 +156,7 @@ export default function CitiesProjectsSection() {
   const handleCityChange = (key: CityKey) => {
     if (key === activeCity) return;
 
+    setDirection("next");
     setAnimating(true);
 
     setTimeout(() => {
@@ -196,12 +218,13 @@ export default function CitiesProjectsSection() {
 
               <div className="mt-6 max-w-[520px] space-y-5 text-[14px] leading-[1.75] text-[#4b4b4b] sm:mt-8 sm:space-y-6 sm:text-[15px] md:text-[16px]">
                 <p>
-                  Pride brings together the scale of modern living and the
-                  warmth of connected communities.
+                  Pride Group builds across cities with a consistent way of
+                  thinking, thoughtful planning, disciplined execution, and
+                  spaces shaped around how people truly live.
                 </p>
                 <p>
-                  For decades, Pride Group has been building across cities with
-                  careful planning and long-term trust.
+                  From homes to larger communities, the focus remains on lasting
+                  quality, everyday functionality, and long-term trust.
                 </p>
               </div>
             </div>
@@ -211,32 +234,45 @@ export default function CitiesProjectsSection() {
           <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-4 sm:px-6 lg:contents lg:px-0 lg:pb-0">
             {cityData.map((city) => {
               const isActive = activeCity === city.key;
+              const hasBgImage = !!city.cardBgImage;
 
               return (
                 <button
                   key={city.key}
-                  onMouseEnter={() => handleCityChange(city.key)}
                   onClick={() => handleCityChange(city.key)}
                   aria-label={`Show ${city.name} projects`}
-                  className={`group min-w-[260px] snap-start rounded-sm px-5 py-7 text-left transition-all duration-500 sm:min-w-[300px] sm:px-6 sm:py-8 lg:min-w-0 lg:rounded-none lg:px-8 lg:py-12 ${
+                  className={`cursor-pointer relative group min-w-[260px] snap-start overflow-hidden rounded-sm px-5 py-7 text-left transition-all duration-500 sm:min-w-[300px] sm:px-6 sm:py-8 lg:min-w-0 lg:rounded-none lg:px-8 lg:py-12 ${
                     isActive
-                      ? "scale-[1.01] bg-[#173566] text-white"
+                      ? "scale-[1.01] text-white"
                       : "bg-[#f8f8f8] text-[#38456a] hover:bg-[#ececec]"
                   }`}
                 >
-                  <div>
+                  {isActive && (
+                    <>
+                      <div className="absolute inset-0 bg-[#173566]" />
+                      {hasBgImage && (
+                        <>
+                          <Image
+                            src={city.cardBgImage}
+                            alt={`${city.name} background`}
+                            fill
+                            className="object-cover"
+                          />
+                          <div className="absolute inset-0 bg-black/40" />
+                        </>
+                      )}
+                    </>
+                  )}
+
+                  <div className="relative z-10">
                     <h3 className="text-[26px] sm:text-[30px] lg:text-[36px]">
                       {city.name}
                     </h3>
 
-                    <p className="mt-5 text-[14px] leading-[1.65] sm:mt-6 sm:text-[15px] lg:mt-8 lg:text-[16px]">
-                      {city.description}
-                    </p>
+                    <span className="mt-8 block cursor-pointer text-[12px] font-semibold uppercase sm:mt-10 sm:text-[13px] lg:text-[14px]">
+                      {city.cta}
+                    </span>
                   </div>
-
-                  <span className="mt-8 block text-[12px] font-semibold uppercase sm:mt-10 sm:text-[13px] lg:text-[14px]">
-                    {city.cta}
-                  </span>
                 </button>
               );
             })}
@@ -276,7 +312,7 @@ export default function CitiesProjectsSection() {
             </div>
           </div>
 
-          {/* TEXT */}
+          {/* TEXT PANEL */}
           <div className="overflow-hidden bg-[#173566] px-10 py-8 text-white sm:px-8 sm:py-10 lg:px-14 lg:py-16">
             <div
               className={`transition-all duration-500 ${
@@ -318,7 +354,7 @@ export default function CitiesProjectsSection() {
                   key={i}
                   onClick={() => goToProject(i)}
                   aria-label={`Go to project ${i + 1}`}
-                  className={`h-2 rounded-full transition-all cursor-pointer ${
+                  className={`h-2 cursor-pointer rounded-full transition-all ${
                     i === projectIndex ? "w-6 bg-white" : "w-2 bg-white/40"
                   }`}
                 />

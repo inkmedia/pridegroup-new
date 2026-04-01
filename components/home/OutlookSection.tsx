@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
@@ -10,9 +9,9 @@ const stats = [
   { value: 35, suffix: "+", label: "YEARS OF EXPERIENCE" },
   { value: 14000, suffix: "+", label: "HAPPY FAMILIES" },
   { value: 30, suffix: "+", label: "COMPLETED PROJECTS" },
-  { value: 17, suffix: "+", label: "ONGOING PROJECTS" },
-  { value: 35, suffix: " Million", label: "SQ. FT. DEVELOPED" },
-  { value: 9.8, suffix: " Million", label: "SQ. FT. UNDER CONSTRUCTION" },
+  // { value: 17, suffix: "+", label: "ONGOING PROJECTS" },
+  // { value: 35, suffix: " Million", label: "SQ. FT. DEVELOPED" },
+  { value: 10, suffix: " Million", label: "SQ. FT. UNDER CONSTRUCTION" },
 ];
 
 function formatNumber(value: number) {
@@ -205,15 +204,19 @@ function ImageReveal() {
         }`}
       />
 
-      <Image
-        src="/images/landscape.png"
-        alt="Pride township"
-        fill
-        sizes="100vw"
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        aria-label="Pride Group film"
         className={`object-cover transition-transform duration-[2000ms] ease-out ${
           show ? "scale-100" : "scale-110"
         }`}
-      />
+      >
+        <source src="/video/Pride-Group-Film.mp4" type="video/mp4" />
+      </video>
     </div>
   );
 }
@@ -233,23 +236,22 @@ export default function OutlookSection() {
 
             <FadeUp delay={120} className="mt-4">
               <p className="text-[14px] leading-[1.8] text-white/90 sm:text-[15px] lg:text-[16px] lg:leading-[1.75]">
-                Pride brings together the scale of modern living and the warmth
-                of connected communities—creating places where families can
-                grow, belong, and thrive.
+                Pride Group builds across cities with a consistent way of
+                thinking—thoughtful planning, disciplined execution, and spaces
+                shaped around how people truly live.
               </p>
             </FadeUp>
 
             <FadeUp delay={240} className="mt-4">
               <p className="text-[14px] leading-[1.8] text-white/90 sm:text-[15px] lg:text-[16px] lg:leading-[1.75]">
-                For decades, Pride Group has been building across cities with a
-                belief in fair dealing, careful planning, and spaces that
-                deliver comfort, function, and trust over time.
+                From homes to larger communities, the focus remains on lasting
+                quality, everyday functionality, and long-term trust.
               </p>
             </FadeUp>
           </div>
 
           <Link
-            href="#"
+            href="/about/"
             className="mt-6 self-start text-[12px] font-semibold underline underline-offset-[3px] lg:self-end"
           >
             Read More...
@@ -260,13 +262,13 @@ export default function OutlookSection() {
       </div>
 
       {/* RIGHT SIDE (STATS) */}
-      <aside className="grid grid-cols-2 gap-3 bg-[#f7f8fb] px-4 py-5 sm:grid-cols-3 sm:px-6 sm:py-6 lg:flex lg:flex-col lg:justify-center lg:gap-0 lg:bg-[#fbfbfb] lg:px-[28px]">
+      <aside className="grid grid-cols-2 gap-8 bg-[#f7f8fb] px-4 py-5 sm:grid-cols-3 sm:px-6 sm:py-6 lg:flex lg:flex-col lg:justify-center lg:gap-8 lg:bg-[#fbfbfb] lg:px-[28px]">
         {stats.map((item, index) => (
           <div
             key={item.label}
             className="rounded-sm bg-white px-3 py-4 text-center shadow-sm lg:bg-transparent lg:px-0 lg:py-[20px] lg:shadow-none"
           >
-            <div className="text-[22px] font-semibold text-[#353f66] sm:text-[24px] lg:text-[24px]">
+            <div className="text-[30px] font-semibold text-[#353f66] sm:text-[28px] lg:text-[30px]">
               <Counter end={item.value} suffix={item.suffix} />
             </div>
 

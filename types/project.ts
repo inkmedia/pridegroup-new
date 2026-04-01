@@ -26,7 +26,7 @@ export type OverviewData = {
 
 export type SpecItem = {
   title: string;
-  content: string;
+  content: string[];
 };
 
 export type GalleryImage = {

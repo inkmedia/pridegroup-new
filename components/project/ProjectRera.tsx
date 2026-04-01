@@ -27,7 +27,7 @@ export default function ProjectActionRera({ project }: { project: Project }) {
                     href={rera.websiteUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-[#c9991a] transition hover:opacity-80"
+                    className="text-[#173363] transition hover:opacity-80"
                   >
                     {rera.websiteUrl}
                   </a>

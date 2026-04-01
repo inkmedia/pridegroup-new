@@ -26,7 +26,7 @@ const items: AccordionItem[] = [
       "Across every category, our focus stays consistent: thoughtful planning, strong execution, and dependable quality.",
     image: "/images/Quality-Across-Segments.jpg",
     imageAlt: "Quality across segments",
-    video: "https://www.youtube.com/embed/0cWsRGd7NvY?start=1",
+    video: "/video/Apartment-Video.mp4",
   },
   {
     title: "BUILT FOR THE LONG TERM",
@@ -55,10 +55,12 @@ export default function BuildingWithPride() {
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [revealing, setRevealing] = useState(false);
+  const [showVideoControls, setShowVideoControls] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleToggle = (index: number) => {
     setRevealing(true);
+    setShowVideoControls(false);
 
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
@@ -103,14 +105,19 @@ export default function BuildingWithPride() {
               />
 
               {currentMedia.video ? (
-                <iframe
+                <video
                   src={currentMedia.video}
                   title={currentMedia.imageAlt}
-                  className={`h-full w-full transition-transform duration-[1200ms] ease-out ${
+                  className={`h-full w-full object-cover transition-transform duration-[1200ms] ease-out ${
                     revealing ? "scale-110" : "scale-100"
                   }`}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
+                  autoPlay
+                  muted
+                  playsInline
+                  loop
+                  controls={showVideoControls}
+                  onMouseEnter={() => setShowVideoControls(true)}
+                  onMouseLeave={() => setShowVideoControls(false)}
                 />
               ) : (
                 <Image
@@ -177,14 +184,19 @@ export default function BuildingWithPride() {
           />
 
           {currentMedia.video ? (
-            <iframe
+            <video
               src={currentMedia.video}
               title={currentMedia.imageAlt}
-              className={`h-full w-full transition-transform duration-[1200ms] ease-out ${
+              className={`h-full w-full object-cover transition-transform duration-[1200ms] ease-out ${
                 revealing ? "scale-110" : "scale-100"
               }`}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
+              autoPlay
+              muted
+              playsInline
+              loop
+              controls={showVideoControls}
+              onMouseEnter={() => setShowVideoControls(true)}
+              onMouseLeave={() => setShowVideoControls(false)}
             />
           ) : (
             <Image

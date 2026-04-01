@@ -4,6 +4,40 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import type { GalleryTab, Project } from "@/types/project";
 
+// specification section icons
+const getSpecificationIcon = (title: string) => {
+  const value = title.toLowerCase();
+
+  if (value.includes("floor")) return "fa-solid fa-border-all";
+  if (value.includes("bath")) return "fa-solid fa-bath";
+  if (value.includes("door") || value.includes("window"))
+    return "fa-solid fa-door-open";
+  if (value.includes("electrical")) return "fa-solid fa-bolt";
+  if (value.includes("kitchen")) return "fa-solid fa-kitchen-set";
+  if (value.includes("finish")) return "fa-solid fa-paint-roller";
+  if (value.includes("wall")) return "fa-solid fa-layer-group";
+  if (value.includes("ceiling")) return "fa-solid fa-house";
+  if (value.includes("security")) return "fa-solid fa-shield-halved";
+  if (value.includes("plumbing")) return "fa-solid fa-faucet-drip";
+
+  return "fa-solid fa-circle-check";
+};
+
+// gallery section icons
+const getGalleryTabIcon = (title: string) => {
+  const value = title.toLowerCase();
+
+  if (value.includes("gallery")) return "fa-solid fa-images";
+  if (value.includes("floor")) return "fa-solid fa-vector-square";
+  if (value.includes("master")) return "fa-solid fa-map";
+  if (value.includes("construction")) return "fa-solid fa-helmet-safety";
+  if (value.includes("status")) return "fa-solid fa-building";
+  if (value.includes("layout")) return "fa-solid fa-compass-drafting";
+  if (value.includes("video")) return "fa-solid fa-circle-play";
+
+  return "fa-solid fa-image";
+};
+
 function getTabIndexFromHash(galleryTabs: GalleryTab[], hash: string) {
   const cleanHash = hash.replace("#", "");
 
@@ -91,20 +125,31 @@ export default function ProjectDetails({ project }: { project: Project }) {
                     key={item.title}
                     type="button"
                     onClick={() => setActiveSpec(index)}
-                    className={`min-w-[110px] rounded-t-[8px] px-5 py-3 text-[16px] font-[500] transition sm:text-[18px] ${
+                    className={`min-w-[110px] cursor-pointer rounded-t-[8px] px-5 py-3 text-[16px] font-[500] transition sm:text-[18px] ${
                       active
                         ? "bg-[#173363] text-white"
                         : "bg-[#5d5d5d] text-white hover:bg-[#4f4f4f]"
                     }`}
                   >
-                    {item.title}
+                    <span className="flex items-center gap-2">
+                      <i
+                        className={`${getSpecificationIcon(item.title)} text-[14px] sm:text-[15px]`}
+                      />
+                      <span>{item.title}</span>
+                    </span>
                   </button>
                 );
               })}
             </div>
 
-            <div className="rounded-[16px] bg-white px-6 py-8 text-[18px] leading-[1.9] text-black/70 sm:px-8 sm:text-[20px]">
-              {specTabs[activeSpec]?.content}
+            <div className="rounded-[16px] bg-white px-6 py-8 sm:px-8">
+              <ul className="space-y-3 pl-5 text-[17px] leading-[1.9] text-black/70 sm:text-[19px]">
+                {specTabs[activeSpec]?.content.map((point, index) => (
+                  <li key={index} className="list-disc">
+                    {point}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         )}
@@ -120,7 +165,7 @@ export default function ProjectDetails({ project }: { project: Project }) {
                 Project Visuals
               </p>
               <h2 className="text-[34px] font-[500] leading-none text-black sm:text-[42px]">
-                Gallery
+                Inside the Project
               </h2>
             </div>
 
@@ -133,13 +178,18 @@ export default function ProjectDetails({ project }: { project: Project }) {
                     key={tab.title}
                     type="button"
                     onClick={() => handleGalleryTabChange(index)}
-                    className={`rounded-t-[10px] border px-5 py-3 text-[18px] font-[500] transition sm:px-6 sm:text-[20px] ${
+                    className={`cursor-pointer rounded-t-[10px] border px-5 py-3 text-[18px] font-[500] transition sm:px-6 sm:text-[20px] ${
                       active
                         ? "border-[#1f75ff] bg-[#173363] text-white"
                         : "border-transparent bg-[#5d5d5d] text-white hover:bg-[#4f4f4f]"
                     }`}
                   >
-                    {tab.title}
+                    <span className="flex items-center gap-2">
+                      <i
+                        className={`${getGalleryTabIcon(tab.title)} text-[15px] sm:text-[16px]`}
+                      />
+                      <span>{tab.title}</span>
+                    </span>
                   </button>
                 );
               })}
@@ -154,7 +204,9 @@ export default function ProjectDetails({ project }: { project: Project }) {
                   >
                     <Image
                       src={image.src}
-                      alt={image.alt || `${project.title} floor plan ${index + 1}`}
+                      alt={
+                        image.alt || `${project.title} floor plan ${index + 1}`
+                      }
                       width={1200}
                       height={900}
                       className="h-auto w-full rounded-[18px] border border-black/8 bg-[#faf8f3] object-contain"

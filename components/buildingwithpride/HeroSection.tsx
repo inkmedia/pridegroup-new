@@ -49,14 +49,14 @@ export default function HeroSection() {
           </h1>
 
           {/* DESCRIPTION */}
-          <p
+          {/* <p
             className={`mt-4 sm:mt-6 text-sm leading-7 text-white/85 sm:text-base sm:leading-8 md:text-lg transition-all duration-700 delay-200 ${
               show ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
             }`}
           >
             Thoughtful homes, well-planned communities, and everyday details
             designed for comfort, longevity, and real life.
-          </p>
+          </p> */}
 
           {/* BUTTONS */}
           <div
@@ -69,13 +69,6 @@ export default function HeroSection() {
               className="inline-flex w-full sm:w-auto items-center justify-center border border-white px-5 py-3 text-sm tracking-wide text-white transition duration-300 hover:bg-white hover:text-black"
             >
               Explore the principles
-            </a>
-
-            <a
-              href="#projects"
-              className="inline-flex w-full sm:w-auto items-center justify-center text-sm tracking-wide text-white underline underline-offset-4 transition hover:text-white/80"
-            >
-              View projects
             </a>
           </div>
 

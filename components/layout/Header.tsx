@@ -10,7 +10,7 @@ import TransitionLink from "../common/TransitionLink";
 const navItems = [
   { label: "THE GROUP", href: "/about" },
   { label: "BUILDING WITH PRIDE", href: "/buildingwithpride" },
-  { label: "MEDIA", href: "#" },
+  { label: "Projects", href: "/projects" },
 ];
 
 const menuItems = [
@@ -27,12 +27,12 @@ const menuItems = [
   {
     title: "Careers",
     desc: "Join our team and shape the future of real estate.",
-    href: "#",
+    href: "/careers",
   },
   {
-    title: "REAP",
-    desc: "Empowering startups in the real estate ecosystem.",
-    href: "#",
+    title: "Awards & Recognition",
+    desc: "Explore Awards, accolades and industry recognition received by Pride Group.",
+    href: "/awards",
   },
   {
     title: "Partner With Us",
@@ -134,14 +134,6 @@ export default function Header() {
 
   const textColor = darkMode && !scrolled ? "text-white" : "text-black";
   const lineColor = darkMode && !scrolled ? "bg-white" : "bg-black";
-  const selectTextColor = darkMode && !scrolled ? "text-white" : "text-black";
-  const selectBorderColor =
-    darkMode && !scrolled ? "border-white/70" : "border-black/70";
-  const selectBg = scrolled
-    ? "bg-white/70"
-    : darkMode
-      ? "bg-white/10"
-      : "bg-white/20";
 
   return (
     <>
@@ -179,34 +171,6 @@ export default function Header() {
                 </TransitionLink>
               ))}
             </nav>
-
-            {/* CITY SELECT */}
-            <div className="relative">
-              <select
-                value={selectedCity}
-                onChange={(e) => setSelectedCity(e.target.value)}
-                className={`cursor-pointer appearance-none rounded-full border px-4 py-2 pr-9 text-[11px] font-[700] uppercase tracking-[0.08em] outline-none transition sm:text-[12px] ${selectTextColor} ${selectBorderColor} ${selectBg}`}
-              >
-                <option value="" disabled hidden>
-                  Select City
-                </option>
-                <option value="Pune" className="text-black">
-                  Pune
-                </option>
-                <option value="Mumbai" className="text-black">
-                  Mumbai
-                </option>
-                <option value="Bangalore" className="text-black">
-                  Bangalore
-                </option>
-              </select>
-
-              <span
-                className={`pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[10px] ${selectTextColor}`}
-              >
-                ▼
-              </span>
-            </div>
 
             {/* HAMBURGER */}
             <button
@@ -252,12 +216,39 @@ export default function Header() {
               />
             </TransitionLink>
 
-            <button
-              onClick={() => setMenuOpen(false)}
-              className="cursor-pointer text-2xl text-white/70 hover:text-white"
-            >
-              ✕
-            </button>
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="relative">
+                <select
+                  value={selectedCity}
+                  onChange={(e) => setSelectedCity(e.target.value)}
+                  className="cursor-pointer appearance-none rounded-full border border-white/50 bg-white/10 px-4 py-2 pr-9 text-[11px] font-[700] uppercase tracking-[0.08em] text-white outline-none transition sm:text-[12px]"
+                >
+                  <option value="" disabled hidden>
+                    Select City
+                  </option>
+                  <option value="Pune" className="text-black">
+                    Pune
+                  </option>
+                  <option value="Mumbai" className="text-black">
+                    Mumbai
+                  </option>
+                  <option value="Bangalore" className="text-black">
+                    Bangalore
+                  </option>
+                </select>
+
+                <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-white">
+                  ▼
+                </span>
+              </div>
+
+              <button
+                onClick={() => setMenuOpen(false)}
+                className="cursor-pointer text-2xl text-white/70 hover:text-white"
+              >
+                ✕
+              </button>
+            </div>
           </div>
 
           {/* MOBILE NAV */}
@@ -308,7 +299,7 @@ export default function Header() {
           <button
             type="button"
             onClick={() => setEnquireOpen(true)}
-            className={`cursor-pointer fixed right-0 top-1/2 z-[998] -translate-y-1/2 rounded-l-xl bg-[#183566] px-5 py-3 text-[11px] font-[700] uppercase tracking-[0.12em] text-white shadow-lg transition-all duration-300 sm:text-[12px] [writing-mode:vertical-rl] ${
+            className={`fixed cursor-pointer right-0 top-1/2 z-[998] -translate-y-1/2 rounded-l-xl bg-[#183566] px-5 py-3 text-[11px] font-[700] uppercase tracking-[0.12em] text-white shadow-lg transition-all duration-300 sm:text-[12px] [writing-mode:vertical-rl] ${
               enquireOpen
                 ? "translate-x-full opacity-0"
                 : "translate-x-0 opacity-100"
@@ -322,7 +313,7 @@ export default function Header() {
             type="button"
             aria-label="Close enquiry form"
             onClick={() => setEnquireOpen(false)}
-            className={`fixed inset-0 z-[1001] bg-black/40 backdrop-blur-sm transition-opacity duration-300 cursor-pointer ${
+            className={`fixed inset-0 z-[1001] cursor-pointer bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
               enquireOpen ? "visible opacity-100" : "invisible opacity-0"
             }`}
           />
@@ -354,79 +345,82 @@ export default function Header() {
               </div>
 
               <div className="flex-1 px-5 py-6 sm:px-6">
-                <form onSubmit={(e) => e.preventDefault()} className="grid gap-4">
-              <div>
-                <label className="mb-2 block text-[12px] font-[700] uppercase tracking-[0.08em] text-black/70">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Enter your name"
-                  className="w-full rounded-xl border border-black/15 px-4 py-3 text-[14px] outline-none transition focus:border-black"
-                />
-              </div>
-
-              <div>
-                <label className="mb-2 block text-[12px] font-[700] uppercase tracking-[0.08em] text-black/70">
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Enter your phone number"
-                  className="w-full rounded-xl border border-black/15 px-4 py-3 text-[14px] outline-none transition focus:border-black"
-                />
-              </div>
-
-              <div>
-                <label className="mb-2 block text-[12px] font-[700] uppercase tracking-[0.08em] text-black/70">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email"
-                  className="w-full rounded-xl border border-black/15 px-4 py-3 text-[14px] outline-none transition focus:border-black"
-                />
-              </div>
-
-              <div>
-                <label className="mb-2 block text-[12px] font-[700] uppercase tracking-[0.08em] text-black/70">
-                  City
-                </label>
-                <select
-                  name="city"
-                  className="w-full rounded-xl border border-black/15 px-4 py-3 text-[14px] outline-none transition focus:border-black"
-                  defaultValue=""
+                <form
+                  onSubmit={(e) => e.preventDefault()}
+                  className="grid gap-4"
                 >
-                  <option value="" disabled>
-                    Select City
-                  </option>
-                  <option value="Pune">Pune</option>
-                  <option value="Mumbai">Mumbai</option>
-                  <option value="Bangalore">Bangalore</option>
-                </select>
-              </div>
+                  <div>
+                    <label className="mb-2 block text-[12px] font-[700] uppercase tracking-[0.08em] text-black/70">
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Enter your name"
+                      className="w-full rounded-xl border border-black/15 px-4 py-3 text-[14px] outline-none transition focus:border-black"
+                    />
+                  </div>
 
-              <div>
-                <label className="mb-2 block text-[12px] font-[700] uppercase tracking-[0.08em] text-black/70">
-                  Message
-                </label>
-                <textarea
-                  name="message"
-                  rows={5}
-                  placeholder="Tell us about your requirement"
-                  className="w-full rounded-xl border border-black/15 px-4 py-3 text-[14px] outline-none transition focus:border-black"
-                />
-              </div>
+                  <div>
+                    <label className="mb-2 block text-[12px] font-[700] uppercase tracking-[0.08em] text-black/70">
+                      Phone Number
+                    </label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      placeholder="Enter your phone number"
+                      className="w-full rounded-xl border border-black/15 px-4 py-3 text-[14px] outline-none transition focus:border-black"
+                    />
+                  </div>
 
-              <button
-                type="submit"
-                className="mt-2 rounded-full bg-[#183566] px-6 py-3 text-[12px] font-[700] uppercase tracking-[0.08em] text-white transition hover:opacity-90"
-              >
-                Submit Enquiry
-              </button>
+                  <div>
+                    <label className="mb-2 block text-[12px] font-[700] uppercase tracking-[0.08em] text-black/70">
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Enter your email"
+                      className="w-full rounded-xl border border-black/15 px-4 py-3 text-[14px] outline-none transition focus:border-black"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="mb-2 block text-[12px] font-[700] uppercase tracking-[0.08em] text-black/70">
+                      City
+                    </label>
+                    <select
+                      name="city"
+                      className="w-full rounded-xl border border-black/15 px-4 py-3 text-[14px] outline-none transition focus:border-black"
+                      defaultValue=""
+                    >
+                      <option value="" disabled>
+                        Select City
+                      </option>
+                      <option value="Pune">Pune</option>
+                      <option value="Mumbai">Mumbai</option>
+                      <option value="Bangalore">Bangalore</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="mb-2 block text-[12px] font-[700] uppercase tracking-[0.08em] text-black/70">
+                      Message
+                    </label>
+                    <textarea
+                      name="message"
+                      rows={5}
+                      placeholder="Tell us about your requirement"
+                      className="w-full rounded-xl border border-black/15 px-4 py-3 text-[14px] outline-none transition focus:border-black"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="mt-2 rounded-full bg-[#183566] px-6 py-3 text-[12px] font-[700] uppercase tracking-[0.08em] text-white transition hover:opacity-90"
+                  >
+                    Submit Enquiry
+                  </button>
                 </form>
               </div>
             </div>
@@ -443,7 +437,7 @@ function MenuItem({ title, desc, href }: any) {
   return (
     <TransitionLink href={href} className="group block">
       <h3 className="text-[24px] sm:text-[28px]">{title}</h3>
-      <p className="mt-3 transition group-hover:text-white/80 text-white/60">
+      <p className="mt-3 text-white/60 transition group-hover:text-white/80">
         {desc}
       </p>
     </TransitionLink>

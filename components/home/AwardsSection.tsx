@@ -70,12 +70,12 @@ export default function AwardsSection() {
     <section className="relative overflow-hidden bg-[#1f3f6b] py-10 sm:py-14 lg:overflow-visible lg:py-16">
       <div className="mx-auto px-5 sm:px-8 lg:px-20">
         {/* HEADER */}
-        <div className="max-w-[980px] text-white">
+        <div className=" text-white">
           <h2 className="text-[30px] leading-[1.15] sm:text-[36px] lg:text-[42px]">
             Our Accolades
           </h2>
 
-          <p className="mt-4 text-[14px] leading-[1.8] text-white/80 sm:text-[15px] lg:text-[16px] lg:leading-[1.6]">
+          {/* <p className="mt-4 text-[14px] leading-[1.8] text-white/80 sm:text-[15px] lg:text-[16px] lg:leading-[1.6]">
             The numerous awards and the LEED Platinum certification that the
             Pride Group has won is a testimony to our unwavering focus on
             superlative quality and to delivering beyond expectations to all our
@@ -83,11 +83,7 @@ export default function AwardsSection() {
             of the leadership team and the entire workforce have helped us raise
             construction standards that are recognized by the authorities and
             the customers alike. Our deliverables stand out...
-          </p>
-
-          <span className="mt-4 inline-block cursor-pointer text-[14px] text-white/70 underline underline-offset-4">
-            Read More
-          </span>
+          </p> */}
         </div>
 
         {/* GRID */}
@@ -167,6 +163,12 @@ export default function AwardsSection() {
               </div>
             );
           })}
+        </div>
+
+        <div className="mt-8 flex justify-center ">
+          <span className="mt-7 cursor-pointer px-4 py-1 border border-white rounded-full text-white hover:bg-white/80 hover:text-black transition-colors duration-300 text-[14px] sm:text-[15px] lg:text-[16px]">
+            View All Awards
+          </span>
         </div>
       </div>
     </section>

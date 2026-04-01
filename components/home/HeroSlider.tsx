@@ -167,34 +167,10 @@ export default function HeroSlider() {
                 index === activeIndex ? "scale-105" : "scale-100"
               }`}
             />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08)_0%,rgba(0,0,0,0.18)_34%,rgba(6,12,22,0.62)_72%,rgba(6,12,22,0.9)_100%)]" />
+            <div className="absolute inset-0" />
+            {/* <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08)_0%,rgba(0,0,0,0.18)_34%,rgba(6,12,22,0.62)_72%,rgba(6,12,22,0.9)_100%)]" /> */}
           </div>
         ))}
-
-        <div className="absolute bottom-24 left-0 z-20 w-full px-4 text-left sm:px-5">
-          <div className="max-w-[330px] rounded-[24px] border border-white/12 bg-black/22 px-4 py-5 backdrop-blur-[10px]">
-          <h1
-            className={`max-w-[260px] whitespace-pre-line text-[26px] leading-[1.06] text-white transition-all duration-700 ${
-              animateText
-                ? "translate-y-0 opacity-100"
-                : "translate-y-[20px] opacity-0"
-            }`}
-          >
-            {slides[activeIndex].mobileTitle || slides[activeIndex].title}
-          </h1>
-
-          <p
-            className={`mt-3 max-w-[290px] text-[13px] leading-[1.65] text-white/88 transition-all duration-700 delay-200 ${
-              animateText
-                ? "translate-y-0 opacity-100"
-                : "translate-y-[20px] opacity-0"
-            }`}
-          >
-            {slides[activeIndex].mobileDescription ||
-              slides[activeIndex].description}
-          </p>
-          </div>
-        </div>
 
         <div className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2.5">
           {slides.map((slide, index) => (

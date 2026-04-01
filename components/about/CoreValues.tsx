@@ -27,7 +27,7 @@ const values = [
 
 export default function CoreValues() {
   const [visible, setVisible] = useState(false);
-  const ref = useRef<HTMLDivElement | null>(null);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -37,66 +37,75 @@ export default function CoreValues() {
           observer.disconnect();
         }
       },
-      { threshold: 0.2 },
+      { threshold: 0.18 },
     );
 
-    if (ref.current) observer.observe(ref.current);
+    if (sectionRef.current) observer.observe(sectionRef.current);
 
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section className="py-10 sm:py-12 md:py-16 lg:py-20">
-      <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-6">
-        <div className="grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-[320px_1fr] lg:gap-8 xl:grid-cols-[380px_1fr]">
-          {/* LEFT PANEL */}
-          <div className="flex flex-col justify-center bg-[#1f3f6b] px-6 py-10 text-white sm:px-8 sm:py-12 md:px-10 lg:min-h-[520px] lg:px-10 xl:h-[600px]">
-            <h2 className="text-[28px] leading-[1.15] sm:text-[32px] lg:text-[34px]">
-              Core <br /> Values
-            </h2>
+    <section id="core-values" className="bg-white py-14 sm:py-16 lg:py-24">
+      <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-10">
+        {/* Header */}
+        <div className="mb-10 max-w-[800px] lg:mb-14">
+          <p className="mb-3 text-[11px] font-[700] uppercase tracking-[0.22em] sm:text-[12px]">
+            Core Values
+          </p>
 
-            <p className="mt-5 text-[14px] leading-[1.8] text-white/90 sm:text-[15px]">
-              The principles that guide how we think, build, and grow.
-            </p>
+          <h2 className="text-[20px] font-[500] leading-[1.08] tracking-[-0.03em] text-[#111] sm:text-[20px] lg:text-[24px]">
+            The principles that shape how we think, build and deliver.
+          </h2>
 
-            <p className="mt-4 text-[14px] leading-[1.8] text-white/90 sm:text-[15px]">
-              Our Core Values inform every decision — from planning to delivery.
-            </p>
-          </div>
+          <p className="mt-5 text-[15px] leading-[1.9] text-black/65 sm:text-[16px]">
+            Our values guide every decision across planning, design, delivery
+            and customer experience, helping us create spaces with long-term
+            trust and lasting impact.
+          </p>
+        </div>
 
-          {/* RIGHT GRID */}
-          <div
-            ref={ref}
-            className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 md:gap-6"
-          >
-            {values.map((item, index) => (
-              <div
-                key={item.title}
-                className={`group bg-[#f7f7f7] p-6 text-center transition-all duration-700 ease-out hover:-translate-y-2 sm:p-7 lg:p-8 ${
-                  visible
-                    ? "translate-y-0 opacity-100"
-                    : "translate-y-[40px] opacity-0"
-                }`}
-                style={{
-                  transitionDelay: `${index * 120}ms`,
-                }}
-              >
-                <div className="mb-5 flex justify-center text-[#1f3f6b] sm:mb-6">
-                  <span className="material-symbols-outlined text-[56px]! sm:text-[64px]! lg:text-[80px]!">
+        {/* Cards */}
+        <div
+          ref={sectionRef}
+          className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:gap-7"
+        >
+          {values.map((item, index) => (
+            <article
+              key={item.title}
+              className={`cursor-pointer group relative overflow-hidden rounded-[10px] border border-black/8 bg-white p-6 shadow-[0_18px_50px_rgba(0,0,0,0.05)] transition-all duration-700 ease-[cubic-bezier(.22,1,.36,1)] hover:-translate-y-1.5 hover:shadow-[0_24px_60px_rgba(0,0,0,0.08)] sm:p-7 lg:p-8 ${
+                visible
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-10 opacity-0"
+              }`}
+              style={{ transitionDelay: `${index * 120}ms` }}
+            >
+              {/* subtle top accent */}
+              <div className="absolute left-0 top-0 h-[3px] w-full bg-gradient-to-r from-[#1f3f6b] via-[#F8F8F8] to-transparent opacity-80" />
+
+              <div className="mb-6 flex items-start justify-between gap-4">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#F8F8F8] text-[#1f3f6b] sm:h-16 sm:w-16">
+                  <span className="material-symbols-outlined text-[30px]! sm:text-[34px]!">
                     {item.icon}
                   </span>
                 </div>
 
-                <h3 className="mb-3 text-[20px] leading-[1.25] text-[#2b2b2b] sm:text-[21px] lg:mb-4 lg:text-[22px]">
-                  {item.title}
-                </h3>
-
-                <p className="text-[14px] leading-[1.7] text-[#555] sm:text-[15px] sm:leading-[1.75]">
-                  {item.text}
-                </p>
+                <span className="text-[12px] font-[700] tracking-[0.14em] text-black/25">
+                  {index + 1 < 10 ? `0${index + 1}` : index + 1}
+                </span>
               </div>
-            ))}
-          </div>
+
+              <h3 className="text-[24px] font-[500] leading-[1.2] tracking-[-0.02em] text-[#111] sm:text-[26px]">
+                {item.title}
+              </h3>
+
+              <div className="mt-5 h-[1px] w-14 bg-[#1f3f6b]" />
+
+              <p className="mt-5 max-w-[520px] text-[14px] leading-[1.9] text-black/62 sm:text-[15px]">
+                {item.text}
+              </p>
+            </article>
+          ))}
         </div>
       </div>
     </section>

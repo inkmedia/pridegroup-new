@@ -8,7 +8,7 @@ export const projects: Project[] = [
     hero: {
       type: "image",
       src: "/images/Wellington.png",
-      heading: "2 & 3 BHK Apartments",
+      heading: "Wellington",
     },
     overview: {
       category: "Residential",
@@ -178,28 +178,52 @@ export const projects: Project[] = [
       specifications: [
         {
           title: "Flooring",
-          content:
-            "800 mm x 800 mm vitrified tiles in all rooms from Kajaria / ZealTop / Nitco / Johnson / RAK / Somany or equivalent make. Anti-skid tiles in bathrooms, terrace and dry balcony. Designer tiles flooring in each floor lobby.",
+          content: [
+            "800 mm x 800 mm vitrified tiles in all rooms from Kajaria / ZealTop / Nitco / Johnson / RAK / Somany or equivalent make.",
+            "Anti-skid tiles in bathrooms, terrace and dry balcony.",
+            "Designer tiles flooring in each floor lobby.",
+          ],
         },
         {
           title: "Bathroom",
-          content:
-            "Ceramic tile dado up to 7 feet height in each bathroom (2' x 4'). C.P. fittings of Jaquar / Cera / Kohler or equivalent make. Sanitaryware of Jaquar / Kohler or equivalent make in all bathrooms.",
+          content: [
+            "Ceramic tile dado up to 7 feet height in each bathroom (2' x 4').",
+            "C.P. fittings of Jaquar / Cera / Kohler or equivalent make.",
+            "Sanitaryware of Jaquar / Kohler or equivalent make in all bathrooms.",
+          ],
         },
         {
           title: "Doors & Windows",
-          content:
-            "Veneered finish and melamine polished main door. Both-side laminated doors for all bedrooms and toilets. Door fittings of Hafele / Dorma / Hettich / PAG / Europa make. Powder-coated aluminium windows with PVC mosquito net in each flat, excluding toilet windows. Aluminium louvered windows with exhaust fan provision. M.S. railing for aluminium windows up to 1 metre height from finished floor level, excluding toilets.",
+          content: [
+            "Veneered finish and melamine polished main door.",
+            "Both-side laminated doors for all bedrooms and toilets.",
+            "Door fittings of Hafele / Dorma / Hettich / PAG / Europa make.",
+            "Powder-coated aluminium windows with PVC mosquito net in each flat, excluding toilet windows.",
+            "Aluminium louvered windows with exhaust fan provision.",
+            "M.S. railing for aluminium windows up to 1 metre height from finished floor level, excluding toilets.",
+          ],
         },
         {
           title: "Electrical",
-          content:
-            "Concealed copper wiring with circuit breakers. Electrical switches of Schneider / Anchor / Vinay / Panasonic make. Provision for inverter point. TV and telephone points in hall and master bedroom. A.C. point provision in all bedrooms and living room. Video door phone with colour screen in each flat.",
+          content: [
+            "Concealed copper wiring with circuit breakers.",
+            "Electrical switches of Schneider / Anchor / Vinay / Panasonic make.",
+            "Provision for inverter point.",
+            "TV and telephone points in hall and master bedroom.",
+            "A.C. point provision in all bedrooms and living room.",
+            "Video door phone with colour screen in each flat.",
+          ],
         },
         {
           title: "Kitchen & Finishes",
-          content:
-            "Granite kitchen platform with stainless steel sink and provision for water purifier. Hob and chimney of Elica / Faber / Jyoti make. Semi-modular kitchen cabinet below kitchen platform. Piped gas system of MNGL for each flat. Oil bound distemper paint for internal walls and ceiling, oil paint to railings, and texture with acrylic paint to exterior walls.",
+          content: [
+            "Granite kitchen platform with stainless steel sink and provision for water purifier.",
+            "Hob and chimney of Elica / Faber / Jyoti make.",
+            "Semi-modular kitchen cabinet below kitchen platform.",
+            "Piped gas system of MNGL for each flat.",
+            "Oil bound distemper paint for internal walls and ceiling.",
+            "Oil paint to railings, and texture with acrylic paint to exterior walls.",
+          ],
         },
       ],
       galleryTabs: [
@@ -237,19 +261,6 @@ export const projects: Project[] = [
               alt: "Wellington tower view",
               caption: "Tower View",
             },
-            
-          ],
-        },
-        {
-          title: "Current Status",
-          anchorId: "current-status",
-          images: [
-            {
-              src: "/images/projects/wellington/wellington-video.mp4",
-              alt: "Wellington construction status video",
-              caption: "Current Status Video",
-              type: "video",
-            },
           ],
         },
         {
@@ -269,6 +280,29 @@ export const projects: Project[] = [
             },
           ],
         },
+        {
+          title: "Master Plan Layout",
+          anchorId: "master-plan-layout",
+          images: [
+            {
+              src: "/images/projects/wellington/Wellington-Master-Layout.jpg",
+              alt: "Master Plan layout of Wellington at Pride World City",
+              caption: "Master Plan Layout",
+            },
+          ],
+        },
+        {
+          title: "Construction Updates",
+          anchorId: "construction-updates",
+          images: [
+            {
+              src: "/images/projects/wellington/wellington-video.mp4",
+              alt: "Wellington construction status video",
+              caption: "Current Status Video",
+              type: "video",
+            },
+          ],
+        },
       ],
 
       connectivity: {
@@ -277,70 +311,73 @@ export const projects: Project[] = [
           {
             title: "Educational Institutes",
             items: [
-              { name: "DY Patil International School", distance: "" },
-              { name: "Lexicon International School", distance: "" },
-              { name: "Symbiosis International University", distance: "" },
-              { name: "Dr. Mar Theophilus School", distance: "" },
+              { name: "DY Patil International School", distance: "6 km" },
+              { name: "Lexicon International School", distance: "7 km" },
+              { name: "Symbiosis International University", distance: "12 km" },
+              { name: "Dr. Mar Theophilus School", distance: "5 km" },
             ],
           },
           {
             title: "Connectivity",
             items: [
-              { name: "Pune International Airport", distance: "20 mins" },
-              { name: "Pune Railway Station", distance: "30 mins" },
-              { name: "Mumbai-Pune Expressway", distance: "35 mins" },
+              { name: "Pune International Airport", distance: "8 km" },
+              { name: "Pune Railway Station", distance: "14 km" },
+              { name: "Mumbai-Pune Expressway", distance: "15 km" },
             ],
           },
           {
             title: "Entertainment & Leisure",
             items: [
-              { name: "Phoenix Marketcity", distance: "" },
-              { name: "Amanora Mall", distance: "" },
-              { name: "Decathlon Wagholi", distance: "" },
+              { name: "Phoenix Marketcity", distance: "9 km" },
+              { name: "Amanora Mall", distance: "16 km" },
+              { name: "Decathlon Wagholi", distance: "11 km" },
             ],
           },
           {
             title: "Groceries & Mart",
             items: [
-              { name: "DMart Ready", distance: "" },
-              { name: "Reliance Smart", distance: "" },
-              { name: "Star Bazaar", distance: "" },
-              { name: "Local Markets & Convenience Stores", distance: "" },
+              { name: "DMart Ready", distance: "5 km" },
+              { name: "Reliance Smart", distance: "6 km" },
+              { name: "Star Bazaar", distance: "9 km" },
+              {
+                name: "Local Markets & Convenience Stores",
+                distance: "2-3 km",
+              },
             ],
           },
           {
             title: "IT/ITES",
             items: [
-              { name: "Commerzone IT Park", distance: "" },
-              { name: "EON IT Park", distance: "" },
-              { name: "World Trade Center Pune", distance: "" },
-              { name: "Weikfield IT Park", distance: "" },
-              { name: "Panchshil Tech Park", distance: "" },
-              { name: "Cerebrum IT Park", distance: "" },
+              { name: "Commerzone IT Park", distance: "11 km" },
+              { name: "EON IT Park", distance: "13 km" },
+              { name: "World Trade Center Pune", distance: "13 km" },
+              { name: "Weikfield IT Park", distance: "9 km" },
+              { name: "Panchshil Tech Park", distance: "10 km" },
+              { name: "Cerebrum IT Park", distance: "10 km" },
             ],
           },
           {
             title: "Hospitals",
             items: [
-              { name: "Ajeenkya Healthcare Center", distance: "" },
-              { name: "Sathe Multi-speciality Hospital", distance: "" },
+              { name: "Ajeenkya Healthcare Center", distance: "6 km" },
+              { name: "Sathe Multi-speciality Hospital", distance: "5 km" },
               {
                 name: "Indrayani Hospital and Cancer Institute",
-                distance: "",
+                distance: "8 km",
               },
             ],
           },
           {
             title: "Metro Station",
             items: [
-              { name: "Ramwadi", distance: "" },
-              { name: "Kalyani Nagar", distance: "" },
-              { name: "Yerwada", distance: "" },
-              { name: "Bund Garden", distance: "" },
-              { name: "Ruby Hall Clinic", distance: "" },
-              { name: "Pune Railway Station", distance: "" },
-              { name: "Kasarwadi", distance: "" },
-              { name: "Bhosari", distance: "" },
+              { name: "Ramwadi", distance: "10 km" },
+              { name: "Kalyani Nagar", distance: "11 km" },
+              { name: "Yerwada", distance: "11 km" },
+              { name: "Bund Garden", distance: "14 km" },
+              { name: "Ruby Hall Clinic", distance: "14 km" },
+              { name: "Pune Railway Station", distance: "14 km" },
+              { name: "Kasarwadi", distance: "12 km" },
+              { name: "Bhosari", distance: "9 km" },
             ],
           },
         ],
