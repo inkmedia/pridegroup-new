@@ -743,7 +743,7 @@ export default function BuildingWithPrideNewPage() {
                 width={1000}
                 height={413}
                 sizes="100vw"
-                className="block h-[350px] w-full object-cover object-center"
+                className="block h-[500px] w-full object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#10203b]/58 via-[#10203b]/10 to-transparent" />
             </div>

@@ -33,7 +33,7 @@ const slides: Slide[] = [
       "Across Pune, Bangalore, and Mumbai, Pride Group creates homes and communities shaped by thoughtful design, lasting quality, and a long-term commitment to the people who live in them.",
     mobileDescription:
       "Across Pune, Bangalore, and Mumbai, Pride Group creates homes and communities shaped by thoughtful design, lasting quality, and a long-term commitment to the people who live in them.",
-    desktopImage: "/images/slide.png",
+    desktopImage: "/images/Slide-2.png",
     mobileImage: "/images/Mobile-Slider.png",
   },
   {
@@ -44,7 +44,7 @@ const slides: Slide[] = [
       "Across Pune, Bangalore, and Mumbai, Pride Group creates homes and communities shaped by thoughtful design, lasting quality, and a long-term commitment to the people who live in them.",
     mobileDescription:
       "Across Pune, Bangalore, and Mumbai, Pride Group creates homes and communities shaped by thoughtful design, lasting quality, and a long-term commitment to the people who live in them.",
-    desktopImage: "/images/slide.png",
+    desktopImage: "/images/Slide-4.png",
     mobileImage: "/images/Mobile-Slider.png",
   },
 ];
