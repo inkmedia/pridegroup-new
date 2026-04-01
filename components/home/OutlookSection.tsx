@@ -10,7 +10,7 @@ const stats = [
   { value: 14000, suffix: "+", label: "HAPPY FAMILIES" },
   { value: 30, suffix: "+", label: "COMPLETED PROJECTS" },
   // { value: 17, suffix: "+", label: "ONGOING PROJECTS" },
-  // { value: 35, suffix: " Million", label: "SQ. FT. DEVELOPED" },
+   { value: 40, suffix: " Million", label: "SQ. FT. DELIVERED" },
   { value: 10, suffix: " Million", label: "SQ. FT. UNDER CONSTRUCTION" },
 ];
 
